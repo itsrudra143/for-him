@@ -9,25 +9,24 @@ const MemoriesSlider = () => {
   const memories = [
     {
       id: 1,
-      image: "src/assets/image-1.jpg",
+      image: "/image-1.jpg",
     },
     {
       id: 2,
-      image: "src/assets/image-2.jpg",
+      image: "/image-2.jpg",
     },
     {
       id: 3,
-      image: "src/assets/image-3.jpg",
+      image: "/image-3.jpg",
     },
     {
       id: 4,
-      image: "src/assets/image-4.jpg",
+      image: "/image-4.jpg",
     },
     {
       id: 5,
-      image: "src/assets/image-5.jpg",
+      image: "/image-5.jpg",
     },
-    
   ];
 
   // Auto-slide effect with play/pause functionality
