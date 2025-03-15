@@ -1,0 +1,377 @@
+.virtual-gifts {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(5px);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.gifts-title {
+  color: #5a3662;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.gifts-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.gift-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #e75a88;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gift-button:hover {
+  transform: scale(1.05);
+  background-color: #d23f70;
+}
+
+.gift-button.active {
+  background-color: #5a3662;
+  transform: scale(1.05);
+}
+
+/* Virtual Hug Styles */
+.virtual-hug {
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.hug-animation {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heart {
+  background-color: #e75a88;
+  display: inline-block;
+  height: 100px;
+  position: relative;
+  transform: rotate(45deg);
+  width: 100px;
+  animation: heart-beat 1.2s infinite;
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: #e75a88;
+  border-radius: 50%;
+  height: 100px;
+  position: absolute;
+  width: 100px;
+}
+
+.heart:before {
+  top: -50px;
+  left: 0;
+}
+
+.heart:after {
+  left: -50px;
+  top: 0;
+}
+
+@keyframes heart-beat {
+  0% {
+    transform: rotate(45deg) scale(0.8);
+  }
+  5% {
+    transform: rotate(45deg) scale(0.9);
+  }
+  10% {
+    transform: rotate(45deg) scale(0.8);
+  }
+  15% {
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    transform: rotate(45deg) scale(0.8);
+  }
+  100% {
+    transform: rotate(45deg) scale(0.8);
+  }
+}
+
+.hug-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  z-index: 10;
+  transform: rotate(-45deg);
+  font-size: 0.8rem;
+}
+
+.hug-emoji {
+  position: absolute;
+  font-size: 4rem;
+  animation: emoji-pulse 3s infinite;
+  opacity: 0;
+}
+
+@keyframes emoji-pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  15% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.hug-message {
+  font-size: 1.1rem;
+  color: #5a3662;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Vouchers Styles */
+.vouchers-container {
+  padding: 1rem;
+}
+
+.vouchers-intro {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #5a3662;
+  font-size: 1.1rem;
+}
+
+.vouchers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.voucher {
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.voucher::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.voucher:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.voucher-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.voucher-title {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: #5a3662;
+}
+
+.voucher-description {
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.voucher-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.voucher-stamp {
+  background-color: rgba(90, 54, 98, 0.8);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.voucher-expiry {
+  font-size: 0.75rem;
+  color: #555;
+  font-style: italic;
+}
+
+/* Playlist Styles */
+.playlist-container {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.playlist-card {
+  background: linear-gradient(145deg, #8a2387, #e94057, #f27121);
+  color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.playlist-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.playlist-icon {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+  animation: music-bounce 2s infinite;
+}
+
+@keyframes music-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.playlist-title {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.playlist-description {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.spotify-button {
+  background-color: #1db954;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.spotify-button:hover {
+  background-color: #1aa34a;
+  transform: scale(1.02);
+}
+
+.spotify-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .virtual-gifts {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  .gifts-buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hug-animation {
+    width: 150px;
+    height: 150px;
+  }
+
+  .heart,
+  .heart:before,
+  .heart:after {
+    width: 80px;
+    height: 80px;
+  }
+
+  .heart:before {
+    top: -40px;
+  }
+
+  .heart:after {
+    left: -40px;
+  }
+
+  .vouchers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animation for gift reveal */
+.gifts-content > div {
+  animation: fade-in 0.5s ease-in;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
