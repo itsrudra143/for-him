@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .sparkle {
+    @apply absolute w-2 h-2 bg-white rounded-full opacity-0 animate-sparkle;
+  }
+}
