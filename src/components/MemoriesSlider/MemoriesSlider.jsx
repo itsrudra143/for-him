@@ -1,41 +1,36 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./MemoriesSlider.css";
 
 const MemoriesSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useRef(null);
 
-  // Sample images - replace with your actual image paths
+  // Enhanced sample data with captions
   const memories = [
     {
       id: 1,
-      image: "../../assets/image-1.jpg", // Replace with actual image path
-      caption: "The day we first met",
+      image: "src/assets/image-1.jpg",
     },
     {
       id: 2,
-      image: "../../assets/image-2.jpg", // Replace with actual image path
-      caption: "That amazing trip to the mountains",
+      image: "src/assets/image-2.jpg",
     },
     {
       id: 3,
-      image: "../../assets/image-3.jpg", // Replace with actual image path
-      caption: "When we laughed so hard we cried",
+      image: "src/assets/image-3.jpg",
     },
     {
       id: 4,
-      image: "../../assets/image-4.jpg", // Replace with actual image path
-      caption: "That surprise birthday party",
+      image: "src/assets/image-4.jpg",
     },
     {
       id: 5,
-      image: "../../assets/image-5.jpg", // Replace with actual image path
-      caption: "Just one of our many coffee dates",
+      image: "src/assets/image-5.jpg",
     },
+    
   ];
 
-  // Auto-slide effect
+  // Auto-slide effect with play/pause functionality
   useEffect(() => {
     const interval = setInterval(() => {
       if (isPlaying) {
@@ -46,31 +41,13 @@ const MemoriesSlider = () => {
     return () => clearInterval(interval);
   }, [isPlaying, memories.length]);
 
-  // Control background music
-  useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.play().catch((error) => {
-          console.log("Audio playback prevented by browser", error);
-          setIsPlaying(false);
-        });
-      } else {
-        audioRef.current.pause();
-      }
-    }
-
-    return () => {
-      //   if (audioRef.current) {
-      //     audioRef.current.pause();
-      //   }
-    };
-  }, [isPlaying]);
-
   const handlePrevSlide = () => {
+    setIsPlaying(false); // Pause when manually navigating
     setCurrentSlide((prev) => (prev - 1 + memories.length) % memories.length);
   };
 
   const handleNextSlide = () => {
+    setIsPlaying(false); // Pause when manually navigating
     setCurrentSlide((prev) => (prev + 1) % memories.length);
   };
 
@@ -80,19 +57,17 @@ const MemoriesSlider = () => {
 
   return (
     <div className="memories-slider">
-      <h2 className="slider-title">Our Beautiful Memories</h2>
-
-      {/* Background Music */}
-      <audio
-        ref={audioRef}
-        loop
-        src="https://assets.codepen.io/217233/Komiku_-_12_-_Bicycle.mp3" // Replace with your music file
-      ></audio>
+      <h2 className="slider-title">Our Beautiful Memories ✨</h2>
 
       {/* Audio Controls */}
       <button className="audio-control" onClick={toggleAudio}>
-        {isPlaying ? "Pause Music" : "Play Music"}
+        {isPlaying ? "Pause Slideshow" : "Play Slideshow"}
       </button>
+
+      {/* Current slide indicator */}
+      <div className="slide-counter">
+        {currentSlide + 1} / {memories.length}
+      </div>
 
       {/* Slider */}
       <div className="slider-container">
@@ -109,7 +84,9 @@ const MemoriesSlider = () => {
                 transform: `translateX(${(index - currentSlide) * 100}%)`,
               }}
             >
-              <img src={memory.image} alt={`Memory ${index + 1}`} />
+              <div className="image-container">
+                <img src={memory.image} alt={`Memory ${index + 1}`} />
+              </div>
               <div className="caption">{memory.caption}</div>
             </div>
           ))}
@@ -126,7 +103,10 @@ const MemoriesSlider = () => {
           <span
             key={index}
             className={`dot ${index === currentSlide ? "active" : ""}`}
-            onClick={() => setCurrentSlide(index)}
+            onClick={() => {
+              setIsPlaying(false);
+              setCurrentSlide(index);
+            }}
           ></span>
         ))}
       </div>

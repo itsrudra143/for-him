@@ -1,53 +1,127 @@
 .virtual-gifts {
   width: 100%;
-  max-width: 800px;
-  margin: 2rem auto;
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(5px);
-  border-radius: 16px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.6)
+  );
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
   padding: 2rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 3rem; /* Add space below the entire component */
+}
+
+.virtual-gifts::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://via.placeholder.com/1000x600") center/cover no-repeat;
+  opacity: 0.08;
+  z-index: -1;
+  border-radius: 20px;
+}
+
+.gifts-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
 }
 
 .gifts-title {
   color: #5a3662;
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, #8a2387, #e94057);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gifts-subtitle {
+  font-size: 1.2rem;
+  color: #e75a88;
+  margin-bottom: 1rem;
+}
+
+.gifts-emoji {
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
 }
 
 .gifts-buttons {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
 }
 
 .gift-button {
   padding: 0.75rem 1.5rem;
-  background-color: #e75a88;
+  background: linear-gradient(135deg, #e75a88, #c84771);
   color: white;
   border: none;
   border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(231, 90, 136, 0.3);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
 }
 
 .gift-button:hover {
-  transform: scale(1.05);
-  background-color: #d23f70;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(231, 90, 136, 0.4);
 }
 
 .gift-button.active {
-  background-color: #5a3662;
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #5a3662, #452b4a);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(90, 54, 98, 0.4);
+}
+
+/* Animation for content transitions */
+.gifts-content {
+  min-height: 300px;
+  position: relative;
+  margin-bottom: 3rem; /* Add space between content and bottom of card */
+}
+
+.gifts-content.animate > div {
+  animation: content-reveal 0.6s ease-out;
+}
+
+@keyframes content-reveal {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Virtual Hug Styles */
 .virtual-hug {
   text-align: center;
-  padding: 1.5rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem; /* Add space below this section */
 }
 
 .hug-animation {
@@ -68,6 +142,7 @@
   transform: rotate(45deg);
   width: 100px;
   animation: heart-beat 1.2s infinite;
+  box-shadow: 0 6px 12px rgba(231, 90, 136, 0.4);
 }
 
 .heart:before,
@@ -78,6 +153,7 @@
   height: 100px;
   position: absolute;
   width: 100px;
+  box-shadow: 0 6px 12px rgba(231, 90, 136, 0.4);
 }
 
 .heart:before {
@@ -119,7 +195,8 @@
   font-weight: bold;
   z-index: 10;
   transform: rotate(-45deg);
-  font-size: 0.8rem;
+  font-size: 0.85rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .hug-emoji {
@@ -127,6 +204,40 @@
   font-size: 4rem;
   animation: emoji-pulse 3s infinite;
   opacity: 0;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.floating-emoji {
+  position: absolute;
+  font-size: 2rem;
+  animation: float 6s ease-in-out infinite;
+  opacity: 0.8;
+}
+
+.delay1 {
+  animation-delay: 1s;
+  right: 20px;
+  top: 40px;
+}
+
+.delay2 {
+  animation-delay: 2s;
+  left: 20px;
+  top: 30px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
 }
 
 @keyframes emoji-pulse {
@@ -158,33 +269,54 @@
   line-height: 1.6;
   max-width: 500px;
   margin: 0 auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* Vouchers Styles */
 .vouchers-container {
-  padding: 1rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem; /* Add space below this section */
 }
 
 .vouchers-intro {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   color: #5a3662;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.intro-emoji {
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .vouchers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
+  background: transparent; /* Ensure transparent background for the grid */
 }
 
 .voucher {
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   position: relative;
-  overflow: hidden;
+  transform: perspective(1000px) rotateX(0deg);
 }
 
 .voucher::after {
@@ -196,7 +328,7 @@
   height: 200%;
   background: linear-gradient(
     to bottom right,
-    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.3),
     rgba(255, 255, 255, 0)
   );
   transform: rotate(30deg);
@@ -204,27 +336,39 @@
 }
 
 .voucher:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transform: perspective(1000px) rotateX(5deg) translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .voucher-content {
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.voucher-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+  text-align: center;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .voucher-title {
   font-size: 1.3rem;
   margin-bottom: 0.75rem;
   color: #5a3662;
+  text-align: center;
+  font-weight: 700;
 }
 
 .voucher-description {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: #333;
   margin-bottom: 1rem;
   flex-grow: 1;
+  text-align: center;
 }
 
 .voucher-footer {
@@ -232,15 +376,19 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px dashed rgba(90, 54, 98, 0.3);
 }
 
 .voucher-stamp {
-  background-color: rgba(90, 54, 98, 0.8);
+  background-color: rgba(90, 54, 98, 0.9);
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   color: white;
   font-size: 0.8rem;
   font-weight: bold;
+  transform: rotate(-5deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .voucher-expiry {
@@ -249,33 +397,61 @@
   font-style: italic;
 }
 
+.voucher-corner {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
 /* Playlist Styles */
 .playlist-container {
-  padding: 1.5rem;
+  padding: 2rem;
   display: flex;
   justify-content: center;
+  margin-bottom: 2rem; /* Add space below this section */
 }
 
 .playlist-card {
   background: linear-gradient(145deg, #8a2387, #e94057, #f27121);
   color: white;
-  border-radius: 12px;
-  padding: 2rem;
+  border-radius: 16px;
+  padding: 2.5rem;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  max-width: 550px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.playlist-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  z-index: 0;
+  border-radius: 16px;
 }
 
 .playlist-header {
   display: flex;
   align-items: center;
   margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .playlist-icon {
   font-size: 2.5rem;
   margin-right: 1rem;
   animation: music-bounce 2s infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes music-bounce {
@@ -289,89 +465,427 @@
 }
 
 .playlist-title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   margin: 0;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .playlist-description {
   line-height: 1.6;
   margin-bottom: 2rem;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+}
+
+.playlist-emoji {
+  font-size: 1.2rem;
+  margin: 0 0.5rem;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .spotify-button {
-  background-color: #1db954;
+  background: #1db954; /* Spotify green */
   color: white;
   border: none;
-  border-radius: 30px;
-  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 100%;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
 }
 
 .spotify-button:hover {
-  background-color: #1aa34a;
-  transform: scale(1.02);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  background: #1ed760;
+}
+
+.spotify-button:active {
+  transform: translateY(-2px);
+}
+
+.spotify-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.spotify-button:hover::before {
+  left: 100%;
 }
 
 .spotify-icon {
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+  font-size: 1.4rem;
+  margin-right: 0.8rem;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.2));
 }
 
-/* Responsive adjustments */
+/* Letter Styles */
+.letter-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem; /* Add space below this section */
+}
+
+.letter-paper {
+  background: #fff;
+  border-radius: 12px;
+  padding: 3rem;
+  width: 100%;
+  max-width: 650px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+  position: relative;
+  background-image: linear-gradient(
+      rgba(238, 238, 238, 0.2) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(238, 238, 238, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.letter-header {
+  margin-bottom: 2rem;
+}
+
+.letter-date {
+  color: #999;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.letter-to {
+  font-size: 1.4rem;
+  color: #5a3662;
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.letter-to::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: #e75a88;
+}
+
+.letter-content {
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.letter-content p {
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.letter-content p::before {
+  content: "💫";
+  position: absolute;
+  left: 0;
+  opacity: 0.5;
+}
+
+.letter-content p:nth-child(2)::before {
+  content: "🌟";
+}
+
+.letter-content p:nth-child(3)::before {
+  content: "🌈";
+}
+
+.letter-content p:nth-child(4)::before {
+  content: "🤝";
+}
+
+.letter-content p:nth-child(5)::before {
+  content: "🎁";
+}
+
+.letter-footer {
+  text-align: right;
+  margin-top: 3rem;
+}
+
+.letter-sign {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.letter-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #5a3662;
+}
+
+.letter-decorations {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.letter-deco {
+  position: absolute;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  opacity: 0.7;
+}
+
+.letter-deco-1 {
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.letter-deco-2 {
+  bottom: 2rem;
+  left: 2rem;
+  animation: float-slow 7s ease-in-out infinite 1s;
+}
+
+.letter-deco-3 {
+  top: 50%;
+  left: 2rem;
+  animation: float-slow 9s ease-in-out infinite 2s;
+}
+
+.letter-deco-4 {
+  bottom: 3rem;
+  right: 3rem;
+  animation: float-slow 10s ease-in-out infinite 3s;
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Added Return Button Styles */
+.return-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem; /* Space above the return button */
+  margin-bottom: 1rem;
+}
+
+.return-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #8a2387, #e94057);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.return-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.return-button:active {
+  transform: translateY(-1px);
+}
+
+.return-icon {
+  font-size: 1.2rem;
+}
+
+/* Additional Emojis and animations */
+.emoji-sparkle {
+  position: fixed;
+  color: gold;
+  font-size: 1rem;
+  user-select: none;
+  pointer-events: none;
+  animation: sparkle-fade 2s forwards;
+  z-index: 9999;
+}
+
+@keyframes sparkle-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0);
+  }
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   .virtual-gifts {
-    padding: 1rem;
-    margin: 1rem auto;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
   }
 
-  .gifts-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
+  .gifts-title {
+    font-size: 2rem;
   }
 
-  .hug-animation {
-    width: 150px;
-    height: 150px;
+  .gifts-subtitle {
+    font-size: 1rem;
   }
 
-  .heart,
-  .heart:before,
-  .heart:after {
-    width: 80px;
-    height: 80px;
-  }
-
-  .heart:before {
-    top: -40px;
-  }
-
-  .heart:after {
-    left: -40px;
+  .gift-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
   }
 
   .vouchers-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .playlist-card {
+    padding: 1.5rem;
+  }
+
+  .playlist-title {
+    font-size: 1.5rem;
+  }
+
+  .letter-paper {
+    padding: 2rem 1.5rem;
+  }
+
+  .spotify-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
   }
 }
 
-/* Animation for gift reveal */
-.gifts-content > div {
-  animation: fade-in 0.5s ease-in;
+@media (max-width: 480px) {
+  .gifts-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .gift-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .letter-content {
+    padding: 0;
+  }
+
+  .letter-content p {
+    padding-left: 1.2rem;
+  }
 }
 
-@keyframes fade-in {
+/* Animations for loading and transitions */
+.loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(231, 90, 136, 0.3);
+  border-radius: 50%;
+  border-top-color: #e75a88;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+
+/* Accessibility improvements */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+:focus {
+  outline: 2px solid #e75a88;
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .virtual-gifts {
+    box-shadow: none;
+    background: white;
+  }
+
+  .gift-button,
+  .return-button {
+    display: none;
+  }
+
+  .voucher {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ccc;
   }
 }

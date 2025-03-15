@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Hero.css";
 import MemoriesSlider from "../MemoriesSlider/MemoriesSlider";
 import VirtualGifts from "../Virtual-Gifts/VirtualGift";
 
 const ThankYouCard = () => {
-  const [showMemories, setShowMemories] = useState(true);
+  // Expand view modes to include three options
+  const [viewMode, setViewMode] = useState("card"); // "card", "memories", or "gifts"
   const [emojis, setEmojis] = useState([]);
 
   // Function to create floating emojis
-  React.useEffect(() => {
+  useEffect(() => {
     const container = document.querySelector(".hero-container");
     if (!container) return;
 
@@ -33,14 +34,22 @@ const ThankYouCard = () => {
 
   // Handle button click to show memories
   const handleShowMemories = () => {
-    setShowMemories(true);
-    // Add confetti effect when showing memories
+    setViewMode("memories");
+    console.log("Switching to memories view");
+    createConfetti();
+  };
+
+  // Handle button click to show virtual gifts
+  const handleShowGifts = () => {
+    setViewMode("gifts");
+    console.log("Switching to gifts view");
     createConfetti();
   };
 
   // Return to thank you card
   const handleReturnToCard = () => {
-    setShowMemories(false);
+    setViewMode("card");
+    console.log("Switching back to card view");
   };
 
   const createConfetti = () => {
@@ -83,6 +92,7 @@ const ThankYouCard = () => {
     <div className="hero-container">
       <div className="confetti-container"></div>
 
+      {/* Floating emojis are always shown */}
       {emojis.map((emojiItem) => (
         <div
           key={emojiItem.id}
@@ -99,7 +109,8 @@ const ThankYouCard = () => {
         </div>
       ))}
 
-      {!showMemories ? (
+      {/* Card View */}
+      {viewMode === "card" && (
         <div className="hero-content">
           <h1 className="hero-title">Thank You!</h1>
 
@@ -129,15 +140,52 @@ const ThankYouCard = () => {
             </p>
           </div>
 
-          <button className="journey-button" onClick={handleShowMemories}>
-            See Our Memories
+          <div className="button-container">
+            <button
+              className="journey-button"
+              onClick={handleShowMemories}
+              data-testid="show-memories-button"
+            >
+              See Our Memories
+            </button>
+            <button
+              className="journey-button"
+              onClick={handleShowGifts}
+              data-testid="show-gifts-button"
+            >
+              Virtual Gifts
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Memories View */}
+      {viewMode === "memories" && (
+        <div className="memories-container">
+          <div className="memories-content">
+            <MemoriesSlider />
+          </div>
+          <button
+            className="return-button"
+            onClick={handleReturnToCard}
+            data-testid="return-button"
+          >
+            Return to Card
           </button>
         </div>
-      ) : (
-        <div className="memories-container">
-          <MemoriesSlider />
-          <VirtualGifts />
-          <button className="return-button" onClick={handleReturnToCard}>
+      )}
+
+      {/* Gifts View */}
+      {viewMode === "gifts" && (
+        <div className="gifts-container">
+          <div className="gifts-content">
+            <VirtualGifts />
+          </div>
+          <button
+            className="return-button"
+            onClick={handleReturnToCard}
+            data-testid="return-button"
+          >
             Return to Card
           </button>
         </div>
