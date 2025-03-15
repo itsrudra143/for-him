@@ -322,7 +322,7 @@
 .voucher::after {
   content: "";
   position: absolute;
-  top: -50%;
+  top: -30%;
   left: -50%;
   width: 200%;
   height: 200%;

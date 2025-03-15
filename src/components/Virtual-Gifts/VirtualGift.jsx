@@ -62,8 +62,8 @@ const VirtualGifts = () => {
     },
     {
       id: 2,
-      title: "Movie Night 🍿",
-      description: "Redeem for a movie night with snacks of your choice!",
+      title: "Movie Date 🍿",
+      description: "Redeem for a movie date with snacks of your choice!",
       background: "linear-gradient(145deg, #c2f0c2, #a3e4a3)",
       emoji: "🎬",
     },
@@ -283,7 +283,7 @@ const VirtualGifts = () => {
 
               <div className="letter-footer">
                 <div className="letter-sign">With all my love,</div>
-                <div className="letter-name">Me</div>
+                <div className="letter-name">Apki Pyari Rudrry ❤️</div>
               </div>
 
               <div className="letter-decorations">
