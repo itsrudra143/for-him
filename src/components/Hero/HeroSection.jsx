@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import "./Hero.css";
 import MemoriesSlider from "../MemoriesSlider/MemoriesSlider";
 import VirtualGifts from "../Virtual-Gifts/VirtualGift";
+import Timeline from "../Timeline/Timeline";
 
 const ThankYouCard = () => {
-  // Expand view modes to include three options
-  const [viewMode, setViewMode] = useState("card"); // "card", "memories", or "gifts"
+  // Update view modes to include timeline instead of quotes
+  const [viewMode, setViewMode] = useState("card"); // "card", "memories", "gifts", or "timeline"
   const [emojis, setEmojis] = useState([]);
 
   // Function to create floating emojis
@@ -43,6 +44,13 @@ const ThankYouCard = () => {
   const handleShowGifts = () => {
     setViewMode("gifts");
     console.log("Switching to gifts view");
+    createConfetti();
+  };
+
+  // Handle button click to show timeline page
+  const handleShowTimeline = () => {
+    setViewMode("timeline");
+    console.log("Switching to timeline view");
     createConfetti();
   };
 
@@ -155,6 +163,13 @@ const ThankYouCard = () => {
             >
               Virtual Gifts
             </button>
+            <button
+              className="journey-button"
+              onClick={handleShowTimeline}
+              data-testid="show-timeline-button"
+            >
+              Our Timeline
+            </button>
           </div>
         </div>
       )}
@@ -180,6 +195,22 @@ const ThankYouCard = () => {
         <div className="gifts-container">
           <div className="gifts-content">
             <VirtualGifts />
+          </div>
+          <button
+            className="return-button"
+            onClick={handleReturnToCard}
+            data-testid="return-button"
+          >
+            Return to Card
+          </button>
+        </div>
+      )}
+
+      {/* Timeline View - Add a placeholder for now */}
+      {viewMode === "timeline" && (
+        <div className="timeline-container">
+          <div className="timeline-content">
+            <Timeline />
           </div>
           <button
             className="return-button"
