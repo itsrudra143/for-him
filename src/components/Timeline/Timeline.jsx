@@ -71,7 +71,7 @@ const Timeline = () => {
             <h2>Your Birthday Wish to Me</h2>
             <p>🎂 A special moment when you wished me on my birthday!</p>
             <div className="timeline-image-placeholder">
-              <img src="public/28march,2023.jpg" alt="Birthday wish" />
+              <img src="/28march,2023.jpg" alt="Birthday wish" />
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const Timeline = () => {
             <h2>The Series You Suggested</h2>
             <p>📺 You first time told me to watch 'Asur,' and I finally did!</p>
             <div className="timeline-image-placeholder">
-              <img src="public/12june,2023.jpg" alt="Asur series" />
+              <img src="/12june,2023.jpg" alt="Asur series" />
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const Timeline = () => {
             <h2>My Birthday Wish to You</h2>
             <p>🎁 A heartfelt wish from me to you on your special day!</p>
             <div className="timeline-image-placeholder">
-              <img src="public/14august,2023.jpg" alt="Birthday wish" />
+              <img src="/14august,2023.jpg" alt="Birthday wish" />
             </div>
           </div>
         </div>
@@ -110,7 +110,7 @@ const Timeline = () => {
               ever!
             </p>
             <div className="timeline-image-placeholder">
-              <img src="public/28august.2023.jpg" alt="Moon conversation" />
+              <img src="/28august.2023.jpg" alt="Moon conversation" />
             </div>
           </div>
         </div>
