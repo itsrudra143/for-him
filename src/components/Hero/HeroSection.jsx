@@ -120,7 +120,7 @@ const ThankYouCard = () => {
       {/* Card View */}
       {viewMode === "card" && (
         <div className="hero-content">
-          <h1 className="hero-title">Thank You!</h1>
+          <h1 className="hero-title">I Love You Baby </h1>
 
           <div className="thank-you-card">
             <p className="hero-text">
