@@ -1,468 +1,212 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight, X, Expand } from "lucide-react";
+import React, { useState } from "react";
+import { Heart } from "lucide-react";
+import "./MemoriesSlider.css";
 
-const MemoriesGallery = () => {
-  const [selectedMemory, setSelectedMemory] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [confetti, setConfetti] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const CoupleGallery = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  // Generate 25 memories with beautiful love quotes
-  const memories = [
-    {
-      id: 1,
-      image: `https://picsum.photos/600/400?random=1`,
-      title: "First Glance",
-      quote:
-        "In your eyes, I found my home, my adventure, and my peace all at once.",
-      date: "The Beginning",
-      author: "Our Love Story",
-    },
-    {
-      id: 2,
-      image: `https://picsum.photos/600/400?random=2`,
-      title: "Morning Coffee",
-      quote:
-        "Every morning with you feels like the first page of a beautiful story.",
-      date: "Daily Bliss",
-      author: "Together Forever",
-    },
-    {
-      id: 3,
-      image: `https://picsum.photos/600/400?random=3`,
-      title: "Sunset Dreams",
-      quote: "With you, every sunset promises a more beautiful tomorrow.",
-      date: "Golden Hour",
-      author: "Endless Love",
-    },
-    {
-      id: 4,
-      image: `https://picsum.photos/600/400?random=4`,
-      title: "Laughter Lines",
-      quote: "Your laughter is the soundtrack to my happiest memories.",
-      date: "Pure Joy",
-      author: "Heart & Soul",
-    },
-    {
-      id: 5,
-      image: `https://picsum.photos/600/400?random=5`,
-      title: "Adventure Awaits",
-      quote:
-        "Life is either a daring adventure or nothing at all, especially with you.",
-      date: "Wanderlust",
-      author: "Journey Together",
-    },
-    {
-      id: 6,
-      image: `https://picsum.photos/600/400?random=6`,
-      title: "Quiet Moments",
-      quote:
-        "In the silence between us, I hear the most beautiful conversations.",
-      date: "Peaceful Love",
-      author: "Silent Understanding",
-    },
-    {
-      id: 7,
-      image: `https://picsum.photos/600/400?random=7`,
-      title: "Dancing Hearts",
-      quote:
-        "We don't just dance together; our souls waltz in perfect harmony.",
-      date: "Rhythm of Love",
-      author: "Dancing Souls",
-    },
-    {
-      id: 8,
-      image: `https://picsum.photos/600/400?random=8`,
-      title: "Starlit Wishes",
-      quote: "Under the stars, I realized you were my greatest wish come true.",
-      date: "Cosmic Love",
-      author: "Written in Stars",
-    },
-    {
-      id: 9,
-      image: `https://picsum.photos/600/400?random=9`,
-      title: "Rain Dance",
-      quote:
-        "Even storms become symphonies when I'm dancing with you in the rain.",
-      date: "Weather Together",
-      author: "Storm & Calm",
-    },
-    {
-      id: 10,
-      image: `https://picsum.photos/600/400?random=10`,
-      title: "Kitchen Stories",
-      quote:
-        "The best recipes are made with love, laughter, and a pinch of chaos.",
-      date: "Cooking Love",
-      author: "Home Sweet Home",
-    },
-    {
-      id: 11,
-      image: `https://picsum.photos/600/400?random=11`,
-      title: "Travel Tales",
-      quote: "We don't go to places; we go to each other, wherever we may be.",
-      date: "Journey Together",
-      author: "Wandering Hearts",
-    },
-    {
-      id: 12,
-      image: `https://picsum.photos/600/400?random=12`,
-      title: "Bookish Love",
-      quote:
-        "You're my favorite chapter in the story of life I never want to end.",
-      date: "Literary Romance",
-      author: "Love Stories",
-    },
-    {
-      id: 13,
-      image: `https://picsum.photos/600/400?random=13`,
-      title: "Garden Bloom",
-      quote:
-        "Like flowers in spring, our love grows more beautiful with each season.",
-      date: "Seasonal Love",
-      author: "Blooming Hearts",
-    },
-    {
-      id: 14,
-      image: `https://picsum.photos/600/400?random=14`,
-      title: "Movie Night",
-      quote: "Every love story is beautiful, but ours is my favorite movie.",
-      date: "Cinema Hearts",
-      author: "Picture Perfect",
-    },
-    {
-      id: 15,
-      image: `https://picsum.photos/600/400?random=15`,
-      title: "Morning Light",
-      quote: "You are the sunrise that makes every dawn worth waking up for.",
-      date: "New Beginnings",
-      author: "Dawn of Love",
-    },
-    {
-      id: 16,
-      image: `https://picsum.photos/600/400?random=16`,
-      title: "Ocean Waves",
-      quote:
-        "Like the ocean, my love for you is deep, endless, and ever-changing.",
-      date: "Infinite Love",
-      author: "Depths of Heart",
-    },
-    {
-      id: 17,
-      image: `https://picsum.photos/600/400?random=17`,
-      title: "City Lights",
-      quote:
-        "In a city of millions, you're the only light that guides me home.",
-      date: "Urban Romance",
-      author: "City of Love",
-    },
-    {
-      id: 18,
-      image: `https://picsum.photos/600/400?random=18`,
-      title: "Winter Warmth",
-      quote:
-        "You're my favorite season - the warmth that melts away winter's cold.",
-      date: "Cozy Love",
-      author: "Seasons of Us",
-    },
-    {
-      id: 19,
-      image: `https://picsum.photos/600/400?random=19`,
-      title: "Music Souls",
-      quote: "You're the melody my heart never knew it was searching for.",
-      date: "Harmonious Love",
-      author: "Love Songs",
-    },
-    {
-      id: 20,
-      image: `https://picsum.photos/600/400?random=20`,
-      title: "Art of Us",
-      quote: "We don't just create art; we are each other's masterpiece.",
-      date: "Creative Hearts",
-      author: "Masterpiece Love",
-    },
-    {
-      id: 21,
-      image: `https://picsum.photos/600/400?random=21`,
-      title: "Sweet Dreams",
-      quote:
-        "Every night, I fall asleep grateful and wake up excited, all because of you.",
-      date: "Dream Love",
-      author: "Dreaming Together",
-    },
-    {
-      id: 22,
-      image: `https://picsum.photos/600/400?random=22`,
-      title: "Forest Path",
-      quote: "Hand in hand, every path becomes an adventure worth taking.",
-      date: "Nature's Love",
-      author: "Path of Hearts",
-    },
-    {
-      id: 23,
-      image: `https://picsum.photos/600/400?random=23`,
-      title: "Celebration",
-      quote:
-        "Every day with you feels like a celebration of everything beautiful.",
-      date: "Joyful Moments",
-      author: "Celebrating Us",
-    },
-    {
-      id: 24,
-      image: `https://picsum.photos/600/400?random=24`,
-      title: "Reflection",
-      quote:
-        "In you, I see the best version of myself and the future I've always dreamed of.",
-      date: "Mirror of Love",
-      author: "Reflected Hearts",
-    },
-    {
-      id: 25,
-      image: `https://picsum.photos/600/400?random=25`,
-      title: "Forever Promise",
-      quote:
-        "This isn't just love; it's the promise of all the beautiful tomorrows to come.",
-      date: "Eternal Love",
-      author: "Promise of Forever",
-    },
+  const coupleImages = [
+    { id: 1, src: "/image1.jpg" },
+    { id: 2, src: "/image2.jpg" },
+    { id: 3, src: "/image3.jpg" },
+    { id: 4, src: "/image4.jpg" },
+    { id: 5, src: "/image5.jpg" },
+    { id: 6, src: "/image6.jpg" },
+    { id: 7, src: "/image7.jpg" },
+    { id: 8, src: "/image8.jpg" },
+    { id: 9, src: "/image9.jpg" },
+    { id: 10, src: "/image10.jpg" },
+    { id: 11, src: "/image11.jpg" },
+    { id: 12, src: "/image12.jpg" },
+    { id: 13, src: "/image13.jpg" },
+    { id: 14, src: "/image14.jpg" },
+    { id: 15, src: "/image15.jpg" },
+    { id: 16, src: "/image16.jpg" },
+    { id: 17, src: "/image17.jpg" },
+    { id: 18, src: "/image18.jpg" },
+    { id: 19, src: "/image19.jpg" },
+    { id: 20, src: "/image20.jpg" },
+    { id: 21, src: "/image21.jpg" },
+    { id: 22, src: "/image22.jpg" },
+    { id: 23, src: "/image23.jpg" },
+    { id: 24, src: "/image24.jpg" },
+    { id: 25, src: "/image25.jpg" },
   ];
 
-  // Confetti particle component
-  const createConfetti = useCallback(() => {
-    const newConfetti = Array.from({ length: 50 }, (_, i) => ({
-      id: Math.random(),
-      x: Math.random() * 100,
-      y: -10,
-      rotation: Math.random() * 360,
-      color: ["#ff6b9d", "#c44569", "#f8b500", "#38ada9", "#786fa6", "#f19066"][
-        Math.floor(Math.random() * 6)
-      ],
-      size: Math.random() * 8 + 4,
-      velocityX: (Math.random() - 0.5) * 2,
-      velocityY: Math.random() * 3 + 2,
-      rotationSpeed: (Math.random() - 0.5) * 10,
-    }));
-    setConfetti(newConfetti);
+  const loveQuotes = [
+    "Every love story is beautiful, but ours is my favorite 💕",
+    "In all the world, there is no heart for me like yours 💖",
+    "You are my today and all of my tomorrows ✨",
+    "Together is a wonderful place to be 🌟",
+    "Our love story is just beginning 💫",
+  ];
 
-    setTimeout(() => setConfetti([]), 3000);
-  }, []);
-
-  // Update confetti positions
-  useEffect(() => {
-    if (confetti.length === 0) return;
-
-    const animationInterval = setInterval(() => {
-      setConfetti((prev) =>
-        prev
-          .map((particle) => ({
-            ...particle,
-            x: particle.x + particle.velocityX,
-            y: particle.y + particle.velocityY,
-            rotation: particle.rotation + particle.rotationSpeed,
-            velocityY: particle.velocityY + 0.1,
-          }))
-          .filter((particle) => particle.y < 120)
-      );
-    }, 50);
-
-    return () => clearInterval(animationInterval);
-  }, [confetti.length]);
-
-  const openModal = (memory, index) => {
-    setSelectedMemory(memory);
-    setCurrentIndex(index);
-    setIsModalOpen(true);
-    createConfetti();
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedMemory(null);
+  const handleCloseModal = () => {
+    setSelectedImage(null);
   };
-
-  const navigateMemory = (direction) => {
-    const newIndex =
-      direction === "next"
-        ? (currentIndex + 1) % memories.length
-        : (currentIndex - 1 + memories.length) % memories.length;
-
-    setCurrentIndex(newIndex);
-    setSelectedMemory(memories[newIndex]);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === "Escape") {
-      closeModal();
-    } else if (e.key === "ArrowRight") {
-      navigateMemory("next");
-    } else if (e.key === "ArrowLeft") {
-      navigateMemory("prev");
-    }
-  };
-
-  useEffect(() => {
-    if (isModalOpen) {
-      document.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    } else {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-    };
-  }, [isModalOpen, currentIndex]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-100 via-pink-50 to-purple-100 p-4">
-      {/* Background blur effect */}
-      <div className="fixed inset-0 bg-gradient-to-br from-rose-200/20 via-pink-200/20 to-purple-200/20 backdrop-blur-sm"></div>
-
-      {/* Confetti Animation */}
-      <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-        {confetti.map((particle) => (
-          <div
-            key={particle.id}
-            className="absolute rounded"
+    <>
+      {/* Continuous Floating Hearts Background */}
+      <div className="floating-hearts-bg">
+        {[...Array(50)].map((_, i) => (
+          <Heart
+            key={i}
+            className="floating-heart-static"
             style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              transform: `rotate(${particle.rotation}deg)`,
-              backgroundColor: particle.color,
-              width: `${particle.size}px`,
-              height: `${particle.size}px`,
+              left: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+              animationDuration: `${8 + Math.random() * 6}s`,
+              fontSize: `${12 + Math.random() * 18}px`,
             }}
+            fill="currentColor"
           />
         ))}
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 bg-clip-text text-transparent mb-4">
-            💕 Our Love Story Gallery 💕
-          </h1>
-          <p className="text-xl text-rose-600/80 font-medium">
-            {memories.length} Beautiful Moments Together
-          </p>
+      {/* Side Floating Hearts */}
+      <div className="floating-hearts-sides">
+        {[...Array(30)].map((_, i) => (
+          <Heart
+            key={`side-${i}`}
+            className="floating-heart-side"
+            style={{
+              left:
+                i % 2 === 0
+                  ? `${Math.random() * 15}%`
+                  : `${85 + Math.random() * 15}%`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${10 + Math.random() * 8}s`,
+              fontSize: `${14 + Math.random() * 22}px`,
+            }}
+            fill="currentColor"
+          />
+        ))}
+      </div>
+
+      {/* Cute Header */}
+      <div className="gallery-header">
+        <div className="header-title">
+          <Heart className="title-heart-left" size={40} fill="currentColor" />
+          <h1 className="main-title">💕 Our Magical Love Journey 💕</h1>
+          <Heart className="title-heart-right" size={40} fill="currentColor" />
         </div>
-
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {memories.map((memory, index) => (
-            <div
-              key={memory.id}
-              className="group cursor-pointer"
-              onClick={() => openModal(memory, index)}
-            >
-              <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50">
-                {/* Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={memory.image}
-                    alt={memory.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <Expand className="w-4 h-4 text-rose-500" />
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <h3 className="font-bold text-lg text-gray-800 mb-1">
-                    {memory.title}
-                  </h3>
-                  <p className="text-sm text-rose-500 font-medium mb-2">
-                    {memory.date}
-                  </p>
-                  <p className="text-sm text-gray-600 italic line-clamp-2">
-                    "
-                    {memory.quote.length > 60
-                      ? memory.quote.substring(0, 60) + "..."
-                      : memory.quote}
-                    "
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <p className="subtitle">
+          ✨ Creating beautiful memories together, one moment at a time ✨
+        </p>
+        <div className="subtitle-hearts">
+          <Heart size={16} fill="#ec4899" className="subtitle-heart" />
+          <Heart size={16} fill="#f472b6" className="subtitle-heart" />
+          <Heart size={16} fill="#ec4899" className="subtitle-heart" />
         </div>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && selectedMemory && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="relative bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl">
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 z-10 bg-white/90 backdrop-blur-sm rounded-full p-2 hover:bg-white transition-colors duration-200"
-            >
-              <X className="w-6 h-6 text-gray-600" />
-            </button>
-
-            {/* Navigation Buttons */}
-            <button
-              onClick={() => navigateMemory("prev")}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 hover:bg-white transition-colors duration-200"
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-600" />
-            </button>
-
-            <button
-              onClick={() => navigateMemory("next")}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm rounded-full p-3 hover:bg-white transition-colors duration-200"
-            >
-              <ChevronRight className="w-6 h-6 text-gray-600" />
-            </button>
-
-            <div className="flex flex-col md:flex-row">
-              {/* Image */}
-              <div className="md:w-1/2 h-64 md:h-96">
-                <img
-                  src={selectedMemory.image}
-                  alt={selectedMemory.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="md:w-1/2 p-8 flex flex-col justify-center">
-                <h2 className="text-3xl font-bold text-gray-800 mb-2">
-                  {selectedMemory.title}
-                </h2>
-                <p className="text-rose-500 font-medium mb-6">
-                  {selectedMemory.date}
-                </p>
-
-                <div className="relative">
-                  <div className="text-6xl text-rose-200 absolute -top-4 -left-2">
-                    "
-                  </div>
-                  <p className="text-lg text-gray-700 italic leading-relaxed pl-6">
-                    {selectedMemory.quote}
-                  </p>
-                  <div className="text-6xl text-rose-200 absolute -bottom-8 -right-2 rotate-180">
-                    "
-                  </div>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <p className="text-sm text-gray-500 font-medium">
-                    {selectedMemory.author}
-                  </p>
-                </div>
+      {/* CSS Gallery Grid */}
+      <div className="gallery-grid">
+        {coupleImages.map((image) => (
+          <div
+            key={image.id}
+            className="gallery-item"
+            onClick={() => handleImageClick(image)}
+          >
+            <div className="image-container">
+              <img
+                src={image.src}
+                alt={`Memory ${image.id}`}
+                className="gallery-image"
+                onError={(e) => {
+                  e.target.style.display = "none";
+                  e.target.parentNode.innerHTML = `
+                    <div class="image-placeholder">
+                      <div class="placeholder-content">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                          <circle cx="8.5" cy="8.5" r="1.5"/>
+                          <polyline points="21,15 16,10 5,21"/>
+                        </svg>
+                        <p>Image ${image.id}</p>
+                      </div>
+                    </div>
+                  `;
+                }}
+              />
+              <div className="image-overlay">
+                <Heart size={24} fill="white" className="overlay-heart" />
               </div>
             </div>
           </div>
+        ))}
+      </div>
+
+      {/* Love Quotes Section */}
+      <div className="quotes-section">
+        <div className="quotes-container">
+          <Heart className="quote-heart-left" size={24} fill="currentColor" />
+          <div className="quotes-content">
+            {loveQuotes.map((quote, index) => (
+              <p key={index} className="love-quote">
+                {quote}
+              </p>
+            ))}
+          </div>
+          <Heart className="quote-heart-right" size={24} fill="currentColor" />
+        </div>
+      </div>
+
+      {/* Bottom cute message */}
+      <div className="bottom-message">
+        <div className="message-card">
+          <Heart className="message-heart-left" size={16} fill="currentColor" />
+          <span className="message-text">
+            25 Beautiful Memories & Counting...
+          </span>
+          <Heart
+            className="message-heart-right"
+            size={16}
+            fill="currentColor"
+          />
+        </div>
+        <div className="final-message">
+          <p>💖 Forever and Always 💖</p>
+        </div>
+      </div>
+
+      {/* Modal for Zoomed Image */}
+      {selectedImage && (
+        <div className="modal-overlay" onClick={handleCloseModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={handleCloseModal}>
+              ×
+            </button>
+            <img
+              src={selectedImage.src}
+              alt={`Memory ${selectedImage.id}`}
+              className="modal-image"
+              onError={(e) => {
+                e.target.style.display = "none";
+                e.target.parentNode.innerHTML = `
+                  <div class="modal-placeholder">
+                    <div class="placeholder-content">
+                      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21,15 16,10 5,21"/>
+                      </svg>
+                      <p>Image ${selectedImage.id}</p>
+                    </div>
+                  </div>
+                `;
+              }}
+            />
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
-export default MemoriesGallery;
+export default CoupleGallery;
